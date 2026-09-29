@@ -98,6 +98,7 @@ def main():
                 out.append(f"| {m} | {a} → {b} | {fixed} | {broke} | {fixed - broke:+d} | {mcnemar_p(fixed, broke):.3f} |")
 
     text = "\n".join(out) + "\n"
+    RES.mkdir(exist_ok=True)
     (RES / "summary.md").write_text(text, encoding="utf-8")
     print(text)
 
