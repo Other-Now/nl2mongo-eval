@@ -149,9 +149,15 @@ def agent(llm, schema_text, question, runner, **_):
         })
         if not calls:
             # Small models sometimes answer in plain text; accept it if it parses.
+            # Qwen3-4B also sometimes writes "refuse\n<reason>" as text instead of
+            # calling the refuse tool; that is a refusal, not a parse failure.
             out.trace.append({"text": m.content})
+            text = (m.content or "").strip()
+            if text.lower().startswith("refuse"):
+                out.answer = Refusal(text[len("refuse"):].strip())
+                return out
             try:
-                out.answer = parse_reply(m.content)
+                out.answer = parse_reply(text)
             except ParseError as e:
                 out.error = f"parse: {e}"
             return out
