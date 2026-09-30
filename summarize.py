@@ -36,6 +36,10 @@ def mcnemar_p(b, c):
     return min(1.0, 2 * p)
 
 
+def fmt_p(p):
+    return "< 0.001" if p < 0.001 else f"{p:.3f}"
+
+
 def pct(x, n):
     return f"{100 * x / n:.0f}%" if n else "-"
 
@@ -85,7 +89,7 @@ def main():
         out.append(f"| {k[1]} | {k[0]} | " + " | ".join(str(cnt.get(f, 0)) for f in fails) + " |")
 
     out.append("\n## Paired comparisons (same model, same questions)\n")
-    out.append("| model | A → B | B fixed (A wrong, B right) | B broke (A right, B wrong) | net | McNemar p |")
+    out.append("| model | A -> B | B fixed (A wrong, B right) | B broke (A right, B wrong) | net | McNemar p |")
     out.append("|---|---|---|---|---|---|")
     models = sorted({k[1] for k in keys})
     for m in models:
@@ -95,7 +99,7 @@ def main():
                 ids = ra.keys() & rb.keys()
                 fixed = sum(1 for i in ids if not ra[i]["correct"] and rb[i]["correct"])
                 broke = sum(1 for i in ids if ra[i]["correct"] and not rb[i]["correct"])
-                out.append(f"| {m} | {a} → {b} | {fixed} | {broke} | {fixed - broke:+d} | {mcnemar_p(fixed, broke):.3f} |")
+                out.append(f"| {m} | {a} -> {b} | {fixed} | {broke} | {fixed - broke:+d} | {fmt_p(mcnemar_p(fixed, broke))} |")
 
     text = "\n".join(out) + "\n"
     RES.mkdir(exist_ok=True)

@@ -1,0 +1,65 @@
+collection movies (23539 documents)
+  _id: objectId
+  awards.nominations: int
+  awards.text: string
+  awards.wins: int
+  cast: array<string>
+  countries: array<string>
+  directors: array<string>
+  fullplot: string  (in 95% of docs)
+  genres: array<string>
+  imdb.id: int
+  imdb.rating: double 88%, int 12%, string 0%
+  imdb.votes: int 100%, string 0%
+  languages: array<string>
+  lastupdated: string
+  metacritic: int  (in 2% of docs)
+  num_mflix_comments: int  (in 67% of docs)
+  plot: string
+  poster: string  (in 87% of docs)
+  rated: string  (in 76% of docs)
+  released: date
+  runtime: int
+  title: string
+  tomatoes.boxOffice: string  (in 1% of docs)
+  tomatoes.consensus: string  (in 12% of docs)
+  tomatoes.critic.meter: int  (in 58% of docs)
+  tomatoes.critic.numReviews: int  (in 58% of docs)
+  tomatoes.critic.rating: double 52%, int 6%  (in 58% of docs)
+  tomatoes.dvd: date  (in 73% of docs)
+  tomatoes.fresh: int  (in 58% of docs)
+  tomatoes.lastUpdated: date
+  tomatoes.production: string  (in 68% of docs)
+  tomatoes.rotten: int  (in 58% of docs)
+  tomatoes.viewer.meter: int  (in 94% of docs)
+  tomatoes.viewer.numReviews: int
+  tomatoes.viewer.rating: double 88%, int 12%
+  tomatoes.website: string  (in 3% of docs)
+  type: string
+  writers: array<string>
+  year: int
+
+collection comments (50304 documents)
+  _id: objectId
+  date: date
+  email: string
+  movie_id: objectId
+  name: string
+  text: string
+
+collection theaters (1564 documents)
+  _id: objectId
+  location.address.city: string
+  location.address.state: string
+  location.address.street1: string
+  location.address.street2: string  (in 33% of docs)
+  location.address.zipcode: string
+  location.geo.coordinates: array<double>
+  location.geo.type: string
+  theaterId: int
+
+collection users (185 documents)
+  _id: objectId
+  email: string
+  name: string
+  password: string  (SENSITIVE: never return or reference)
